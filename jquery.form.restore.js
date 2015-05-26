@@ -1,11 +1,16 @@
 (function($) {
-    $.fn.formRestore = function(data) {
+    $.fn.formRestore = function(options) {
         return this.each(function() {
+            var setting = $.extend({
+                data: null,
+                separate: ','
+            }, options);
+
             $(this).find(':input').each(function() {
                 var name = this.name;
 
-                if (typeof(data[name]) !== 'undefined') {
-                    var value = data[name]
+                if (typeof(setting.data[name]) !== 'undefined') {
+                    var value = setting.data[name]
 
                     switch (this.type) {
                         case 'text':
@@ -17,8 +22,8 @@
                             $(this).prop('checked', (this.value == value));
                             break;
                         case 'checkbox':
-                            if (value.indexOf(',') !== -1) {
-                                var sp = value.split(',');
+                            if (value.indexOf(setting.separate) !== -1) {
+                                var sp = value.split(setting.separate);
 
                                 for (var i in sp) {
                                     if ($.trim(this.value) == $.trim(sp[i])) {
@@ -39,8 +44,8 @@
                             break;
                         case 'select-multiple':
                             $(this).find('option').each(function() {
-                                if (value.indexOf(',') !== -1) {
-                                    var sp = value.split(',');
+                                if (value.indexOf(setting.separate) !== -1) {
+                                    var sp = value.split(setting.separate);
 
                                     for (var i in sp) {
                                         if ($.trim($(this).val()) == $.trim(sp[i])) {
