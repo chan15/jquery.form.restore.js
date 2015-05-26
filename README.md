@@ -17,13 +17,16 @@ Restore form value by JSON data
             "content": "my content",
             "on": "2",
             "checked": "checked",
-            "opts[]": "oa,oc",
+            "opts[]": "oa##oc",
             "sel": "b",
             "hidden": 1,
-            "sel_m": "a1,c1,d1"
-        };
+            "sel_m": "a1##c1##d1"
+        }
 
-        $('#modify_form').formRestore(data);
+        $('#modify_form').formRestore({
+            data: data,
+            separate: '##'
+        })
     });
     </script>
 </head>
